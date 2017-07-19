@@ -87,8 +87,12 @@ options = {}
 defaults = {
 'header': """
 G90 ;absolute positioning 
-G28 X0 Y0 ;move X/Y to min endstops
+""",
+'header_z': """
 G28 Z0 ;move Z to min endstops
+""",
+'header_xy': """
+G28 X0 Y0 ;move X/Y to min endstops
 """,
 'footer': """
 G28 X0 ;move X to min endstops
@@ -2450,7 +2454,9 @@ class laser_gcode(inkex.Effect):
         self.OptionParser.add_option("",   "--engraving-draw-calculation-paths",action="store", type="inkbool",         dest="engraving_draw_calculation_paths",    default=False,                          help="Draw additional graphics to debug engraving path")
         self.OptionParser.add_option("",   "--unit",                            action="store", type="string",          dest="unit",                                default="G21 (All units in mm)",        help="Units either mm or inches")
         self.OptionParser.add_option("",   "--active-tab",                      action="store", type="string",          dest="active_tab",                          default="",                             help="Defines which tab is active")
-        self.OptionParser.add_option("",   "--biarc-max-split-depth",           action="store", type="int",             dest="biarc_max_split_depth",               default="4",                            help="Defines maximum depth of splitting while approximating using biarcs.")                
+        self.OptionParser.add_option("",   "--biarc-max-split-depth",           action="store", type="int",             dest="biarc_max_split_depth",               default="4",                            help="Defines maximum depth of splitting while approximating using biarcs.")  
+        self.OptionParser.add_option("",   "--enable-xy-calibration",           action="store", type="inkbool",         dest="enable_xy_calibration",               default=True,                           help="Hide messages during g-code generation")
+        self.OptionParser.add_option("",   "--enable-z-calibration",           action="store", type="inkbool",         dest="enable_z_calibration",               default=True,                           help="Hide messages during g-code generation")              
         
     def parse_curve(self, p, layer, w = None, f = None):
             c = []
@@ -2581,6 +2587,11 @@ class laser_gcode(inkex.Effect):
                 f.close()
             else:
                 self.header = defaults['header']
+                if self.options.enable_xy_calibration :
+                    self.header += defaults['header_xy']
+                if self.options.enable_z_calibration :
+                    self.header += defaults['header_z']
+
             if (os.path.isfile(self.options.directory+'footer')):
                 f = open(self.options.directory+'footer','r')
                 self.footer = f.read()

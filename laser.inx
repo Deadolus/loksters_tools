@@ -11,6 +11,8 @@
 	<param name="laser-speed" type="int" min="0" max="4000" _gui-text="Laser Speed (mm/min or in/min):">30</param>
 	<param name="laser-power" type="int" min="0" max="20000" _gui-text="Laser Power S# (0-255 or 0-12000):">255</param>
 	<param name="power-delay" type="int" min="0" max="1000" _gui-text="Power-On Delay (ms or s):">0</param>	
+    <param name="enable-xy-calibration" type="boolean" _gui-text="Calibrate X/Y first">true</param>
+    <param name="enable-z-calibration" type="boolean" _gui-text="Calibrate Z first">true</param>
     <param name="z-offset" type="float" min="0" max="400" _gui-text="Z Offset - where the laser is at maximum focus (mm or in):">29</param>
     <param name="x-offset" type="float" min="0" max="400" _gui-text="X Offset (mm or in):">0</param>
     <param name="y-offset" type="float" min="0" max="400" _gui-text="Y Offset (mm or in):">0</param>
