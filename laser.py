@@ -3130,7 +3130,7 @@ class laser_gcode(inkex.Effect):
             #print_("orientation_scale < 0 ===> switching to inches units=%0.10f"%orientation_scale )
         if self.options.unit == "G21 (All units in mm)" : 
             points = [[0.,0.,0.],[100.,0.,0.],[0.,100.,0.]]
-            orientation_scale = 3.5433070660
+            orientation_scale = 1 
             print_("orientation_scale < 0 ===> switching to mm units=%0.10f"%orientation_scale )
         elif self.options.unit == "G20 (All units in inches)" :
             points = [[0.,0.,0.],[5.,0.,0.],[0.,5.,0.]]
