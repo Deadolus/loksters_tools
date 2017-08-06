@@ -2417,9 +2417,14 @@ class laser_gcode(inkex.Effect):
     def export_gcode(self,gcode):
         gcode_pass = gcode
         for x in range(1,self.options.passes):
-            if( (x > 0) && (x % self.options.pass_depth_steps == 0) )
-              gcode += "G1 Z-" + self.options.pass_depth +"\n"
-            gcode += "G91\nG90\n" + gcode_pass
+            if ( x > 0 ) and (x % int(self.options.pass_depth_steps) == 0) :
+              gcode += ";New pass depth\nG91\nG1 Z"
+              if float(self.options.pass_depth) > 0 :
+                gcode += "-"
+              else :
+                gcode += "+"
+              gcode += str(abs(float(self.options.pass_depth))) +"\nG90\n" 
+            gcode += gcode_pass
         f = open(self.options.directory+self.options.file, "w")
         f.write(
             self.options.laser_off_command + " S0 ; turn the laser off" + "\n" + 
