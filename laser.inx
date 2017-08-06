@@ -18,6 +18,7 @@
     <param name="y-offset" type="float" min="0" max="400" _gui-text="Y Offset (mm or in):">0</param>
 	<param name="passes" type="int" min="1" max="100" _gui-text="Passes:">1</param>
 	<param name="pass-depth" type="float" min="0" max="5" _gui-text="Pass Depth (mm or in):">1</param>
+	<param name="pass-depth-steps" type="int" min="0" max="10" _gui-text="Apply pass depth every X steps">1</param>
 	<param name="directory" type="string" _gui-text="Directory:"></param>
 	<param name="filename" type="string" _gui-text="Filename:">output.gcode</param>
 	<param name="add-numeric-suffix-to-filename" type="boolean" _gui-text="Add numeric suffix to filename">true</param>

@@ -2417,7 +2417,9 @@ class laser_gcode(inkex.Effect):
     def export_gcode(self,gcode):
         gcode_pass = gcode
         for x in range(1,self.options.passes):
-            gcode += "G91\nG1 Z-" + self.options.pass_depth + "\nG90\n" + gcode_pass
+            if( (x > 0) && (x % self.options.pass_depth_steps == 0) )
+              gcode += "G1 Z-" + self.options.pass_depth +"\n"
+            gcode += "G91\nG90\n" + gcode_pass
         f = open(self.options.directory+self.options.file, "w")
         f.write(
             self.options.laser_off_command + " S0 ; turn the laser off" + "\n" + 
@@ -2444,6 +2446,7 @@ class laser_gcode(inkex.Effect):
         self.OptionParser.add_option("",   "--laser-power",                     action="store", type="int",             dest="laser_power",                         default="256",                          help="S# is 256 or 10000 for full power")
         self.OptionParser.add_option("",   "--passes",                          action="store", type="int",             dest="passes",                              default="1",                            help="Quantity of passes")
         self.OptionParser.add_option("",   "--pass-depth",                      action="store", type="string",          dest="pass_depth",                          default="1",                            help="Depth of laser cut")
+        self.OptionParser.add_option("",   "--pass-depth-steps",                      action="store", type="string",          dest="pass_depth_steps",                          default="1",                            help="Apply depth every X steps")
         self.OptionParser.add_option("",   "--z-offset",                    action="store", type="string",          dest="z_offset",                        default="29",                           help="Z Offset of the laser (where the laser is at maximum focus)")
         self.OptionParser.add_option("",   "--x-offset",                        action="store", type="string",          dest="x_offset",                            default="0",                            help="X Offset of the laser")
         self.OptionParser.add_option("",   "--y-offset",                        action="store", type="string",          dest="y_offset",                            default="0",                            help="Y Offset of the laser")
